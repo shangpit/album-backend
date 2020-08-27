@@ -10,13 +10,13 @@ class PhotosController {
     const form = formidable({ multiples: true });
     form.parse(_req, async (err, fields, files) => {
       if (err) {
-        return ExceptionHelper.bad_request(_res);
+        return ExceptionHelper.badRequest(_res);
       }
 
       const { error: errValidateField, value: { album } } = UploadPhotosSchema.validate(fields);
       if (errValidateField) {
         const { message } = errValidateField.details[0];
-        return ExceptionHelper.bad_request(_res, message);
+        return ExceptionHelper.badRequest(_res, message);
       }
 
       if (!fs.existsSync(`${process.env.BASE_DIR}/${album}`)) {
@@ -35,7 +35,7 @@ class PhotosController {
       const totalSizeInMegabyte = photos.reduce((prev, curr) => prev + curr.size, 0) / (1024 * 1024);
       
       if (totalSizeInMegabyte > process.env.MAX_UPLOAD_SIZE) {
-        return ExceptionHelper.bad_request(_res, 'Over limit size of total file!');
+        return ExceptionHelper.badRequest(_res, 'Over limit size of total file!');
       }
 
       const data = await Promise.all(photos.map(async photo => await PhotosService.checkAndMoveFile(album, photo)));
@@ -50,7 +50,7 @@ class PhotosController {
     const { error, value } = GetListPhotosSchema.validate(_req.body);
     if (error) {
       const { message } = error.details[0];
-      ExceptionHelper.bad_request(_res, message);
+      return ExceptionHelper.badRequest(_res, message);
     }
 
     const { skip, limit } = value;
