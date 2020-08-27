@@ -3,7 +3,7 @@ import { HEALTH_CHECK, PHOTOS } from './constants/endpoint.constant';
 import PhotosController from './controllers/photos.controller';
 
 const router = Router();
-
+// eslint-disable-next-line no-unused-vars
 router.get(`/${HEALTH_CHECK}`, (req, res) => {
   res.status(200).json({
     message: 'OK',

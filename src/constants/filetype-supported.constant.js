@@ -3,5 +3,5 @@ export const FILE_TYPES = [
   'jpg',
   'png',
   'bmp',
-  'webp'
-]
+  'webp',
+];

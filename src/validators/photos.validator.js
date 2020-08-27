@@ -18,7 +18,7 @@ export const UploadPhotosSchema = Joi.object({
     .string()
     .pattern(/^[A-Za-z]+$/, { name: 'album partern'})
     .min(2)
-    .max(50)
+    .max(50),
 });
 
 export const DeletePhotosSchema = Joi.object({
